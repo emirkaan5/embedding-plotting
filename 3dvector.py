@@ -2,14 +2,14 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sentence_transformers import SentenceTransformer
 import numpy as np
-
+import os
 # Load a pre-trained model
 model = SentenceTransformer('distiluse-base-multilingual-cased-v1')
 model2= SentenceTransformer('all-MiniLM-L6-v2')
 openai_key = " "
 
 from openai import OpenAI
-client = OpenAI(api_key=openai_key)
+client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 def get_embedding(text, model="text-embedding-3-small"):
    text = text.replace("\n", " ")
@@ -103,5 +103,5 @@ ax3.set_xlabel('PCA 1')
 ax3.set_ylabel('PCA 2')
 ax3.set_zlabel('PCA 3')
 ax3.set_title('OpenAI Embeddings')
-
+plt.savefig("test_output.png")
 plt.show()
